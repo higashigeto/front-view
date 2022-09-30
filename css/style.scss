@@ -1,0 +1,43 @@
+@mixin reset_style {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@mixin max_width {
+  width: 67.5rem;
+  margin: 0 auto;
+}
+
+// 第一引数で基準となる画面幅のフォントサイズ、第二引数で基準となる画面幅を入力
+@function get_vw($size, $viewport:320) {
+  $rate: 100 / $viewport;
+  @return $rate * $size * 1vw;
+}
+
+@mixin fz_vw($font_size:10) {
+  font-size: $font_size * 1px;
+  font-size: get_vw($font_size);
+}
+
+* {
+  @include reset_style;
+  ::before,
+  ::after {
+    @include reset_style;
+  }
+  @media screen and (max-width:767px) {
+    @include fz_vw(13);
+  }
+}
+
+section {
+  width: 100%;
+}
+
+@media screen and (min-width:768px) {
+  .header_contents {
+    @include max_width;
+    display: flex;
+  }
+}
